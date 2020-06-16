@@ -34,9 +34,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func updateTask(_ sender: Any?) {
         if let button = statusItem.button {
+            let running = NSWorkspace.shared.frontmostApplication
+            NSRunningApplication.current.activate(options:[NSApplication.ActivationOptions.activateIgnoringOtherApps])
             let msg = getString(title: "Update task", question: "What are you working on?", defaultValue: currentTask == AppDelegate.noTaskString ? "" : currentTask)
             currentTask = msg == "" ? AppDelegate.noTaskString : msg
             updateButtonTitle(button, currentTask)
+            running?.activate(options:[NSApplication.ActivationOptions.activateIgnoringOtherApps])
         }
     }
     
